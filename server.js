@@ -10,11 +10,11 @@
     console.log("server.js running")
     // app.use(expressValidator());
     // parse requests of content-type - application/x-www-form-urlencoded
-    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.urlencoded({ extended: true ,  }))
    
     // parse requests of content-type - application/json
     app.use(bodyParser.json())
-    app.use("/api",route);
+    app.use("/api",route)
     
     // define a simple route
     app.get('/', (req, res) => {
@@ -25,7 +25,7 @@
    
 
     mongoose.connect(dbConfig.url,{
-        useNewUrlParser :true
+        useNewUrlParser :true,useUnifiedTopology: true
     }).then(()=>{
         console.log("Database connected successfully");
     }).catch(err =>{

@@ -18,19 +18,25 @@ class EmployeeService{
         })
     }
     getEmployeeUpdate=(req)=>{
-        let a = model.getOne(req.params.id).then((data=>
-            console.log("updated successfully",data)
-            )).catch(err =>{
+        return  model.getOne(req.params.id).then((data)=>{
+            let  a =data;
+            console.log("Print data: ", data);
+      return model.update(req, a).then((data) => {
+        return data;
+        }).catch(err =>{
+            return err;
+        })
+     }).catch((err) => {
+        console.log(err);
+    })
+}
+    getEmployeeDelete=(id)=>{
+        return model.delete(id).then((data) =>{
+            return data;
+            console.log("deleted successfully")
+        }).catch(err =>{
             return err;
         })
     }
-    // getEmployeeDelete=()=>{
-    //     return model.delete().then(data =>{
-    //         return data;
-    //         console.log("deleted successfully")
-    //     }).catch(err =>{
-    //         return err;
-    //     })
-    // }
 }
 module.exports=new EmployeeService();

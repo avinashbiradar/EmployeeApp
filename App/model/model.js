@@ -37,17 +37,34 @@ class EmployeeModel{
         })
     }
     
-    update =(req)=>{
+    getOne = (id) => {
+        console.log("Request One Emp Data by id in Model");
+        return new Promise((resolve, reject) => {
+          employee
+            .findById(id)
+            .then((data) => {
+              resolve(data);
+              console.log("Get Data Successfull", data);
+            })
+            .catch((err) => {
+              console.log(err);
+              reject(err);
+            });
+        });
+      };
+    
+    update =(req,a)=>{
         console.log("Update by Id");
         return new Promise((resolve,reject)=>{
             employee.
             findByIdAndUpdate(
                 req.params.id,
                 {
-                    firstName:req.body.firstName||"Undefined",
-                    lastName:req.body.lastName||"Undefined",
-                    email:req.body.email||"Undefined",
-                    department:req.body.department||"Undefined",
+                    firstName:req.body.firstName||a.firstName,
+                    lastName:req.body.lastName||a.lastName,
+                    sallary: req.body.sallary||a.sallary,
+                    email:req.body.email||a.email,
+                    department:req.body.department||a.department,
                 },
                 {new:true}
             ).then((data)=>{
@@ -60,16 +77,17 @@ class EmployeeModel{
         })
     }
      
-    // delete=()=>{
-    //     console.log(" req in model ");
-    //     return new Promise((resolve,reject)=>{
-    //         employee.findByIdAndDelete().then(data=>{
-    //             resolve(data)
-    //         }).catch(err =>{
-    //             reject(err)
-    //         })
-    //     })
-    // }
+    delete=(id)=>{
+        console.log(" req in model ");
+        return new Promise((resolve,reject)=>{
+            employee.findByIdAndDelete(id).then((data)=>{
+                resolve(data);
+                console.log("delete data success")
+            }).catch(err =>{
+                reject(err)
+            })
+        })
+    }
 }
 
 module.exports = new EmployeeModel()

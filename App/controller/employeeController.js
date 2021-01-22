@@ -1,3 +1,4 @@
+const { response } = require('express');
 const employeeservice = require('../services/employeeservice');
 const service = require('../services/employeeservice')
 const employeeUpdate = require('../services/employeeservice')
@@ -19,25 +20,31 @@ class EmployeeController{
             return res.send(err)
         })
     }
+
     updateEmployeeData=(req,res)=>{
         console.log("Data in controller ",req.body);
-      employeeUpdate.getEmployeeUpdate(req)
-      .then(data=>{
-          console.log("updated succcessfully ")
-          return res.send(data)
+      employeeUpdate
+      .getEmployeeUpdate(req)
+      .then((data)=>{
+        response.message="updated succcessfully ";
+        response.data=data;
+          return res.send(response)
       }).catch(err=>{
-        return res.send(err)
+        return res.send(response)
       })
+  };
+    
+    
+   deleteEmployeeData=(req,res)=>{
+    console.log("Data in controller ",req.body);
+   employeeDelete.getEmployeeDelete(req.params.id)
+    .then(data=>{
+        response.message="deleted succcessfully ";
+        response.data=data;
+        return res.send(response)
+    }).catch(err=>{
+      return res.send(response)
+    })
    }
-//    deleteEmployeeData=(req,res)=>{
-//     console.log("Data in controller ",req.body);
-//    employeeDelete.getEmployeeDelete(req.params.id)
-//     .then(data=>{
-//         console.log("deleted succcessfully ")
-//         return res.send(data)
-//     }).catch(err=>{
-//       return res.send(err)
-//     })
-//    }
 }
 module.exports=new EmployeeController();
