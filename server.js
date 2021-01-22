@@ -9,6 +9,7 @@
     const app = express();
     console.log("server.js running")
     // app.use(expressValidator());
+    
     // parse requests of content-type - application/x-www-form-urlencoded
     app.use(bodyParser.urlencoded({ extended: true ,  }))
    

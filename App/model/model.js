@@ -52,22 +52,19 @@ class EmployeeModel{
             });
         });
       };
+
     
     update =(req,a)=>{
         console.log("Update by Id");
         return new Promise((resolve,reject)=>{
-            employee.
-            findByIdAndUpdate(
-                req.params.id,
-                {
-                    firstName:req.body.firstName||a.firstName,
-                    lastName:req.body.lastName||a.lastName,
-                    sallary: req.body.sallary||a.sallary,
-                    email:req.body.email||a.email,
-                    department:req.body.department||a.department,
-                },
-                {new:true}
-            ).then((data)=>{
+            let requestData=  {
+                firstName:req.body.firstName||a.firstName,
+                lastName:req.body.lastName||a.lastName,
+                sallary: req.body.sallary||a.sallary,
+                email:req.body.email||a.email,
+                department:req.body.department||a.department,
+            }
+            employee.findByIdAndUpdate( req.params.id,requestData, {new:true} ).then((data)=>{
                 resolve(data);
                 console.log("get Data successfull",data);
             }).catch(err =>{
